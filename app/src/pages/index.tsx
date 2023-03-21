@@ -12,6 +12,7 @@ import {
 	useNetworkMismatch,
 	ChainId,
 } from "@thirdweb-dev/react"
+import Link from "next/link"
 
 export default function Home() {
 	const address = useAddress()
@@ -52,15 +53,45 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<>
+			<div style={{ padding: "0 2rem" }}>
 				{address ? (
-					<>
+					<div
+						style={{
+							minHeight: "100vh",
+							padding: "4rem 0",
+							flex: "1",
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "center",
+							alignItems: "center",
+						}}
+					>
+						<h1>
+							Contract:{" "}
+							<Link href="https://thirdweb.com/goerli/0x80cacf8881F906CAA4322bb45Ccd00c640F4cB1a">
+								0x80cacf8881F906CAA4322bb45Ccd00c640F4cB1a
+							</Link>
+						</h1>
 						<button type="button" onClick={disconnect}>
 							Disconnect wallet
 						</button>
 						<p>Your address: {address}</p>
+						<p>
+							Only the account 0x798989678DfF778D6e6957761f0d9A4ccc36E559 can
+							mint the NFTs
+						</p>
 						{!isLoadingNfts ? (
-							<>
+							<div
+								style={{
+									display: "flex",
+									flexDirection: "row",
+									flexWrap: "wrap",
+									maxWidth: "80%",
+									gap: "10%",
+									justifyContent: "center",
+									margin: "16px",
+								}}
+							>
 								{nfts?.map((nft) => {
 									return (
 										<div key={nft.metadata.id.toString()}>
@@ -68,20 +99,20 @@ export default function Home() {
 										</div>
 									)
 								})}
-							</>
+							</div>
 						) : (
 							<>Loading NFTS...</>
 						)}
 						<button type="button" onClick={mintAnNft}>
 							{isMinting ? "Minting..." : "Mint NFT"}
 						</button>
-					</>
+					</div>
 				) : (
 					<button type="button" onClick={connectWithMetamask}>
 						Connect with Metamask
 					</button>
 				)}
-			</>
+			</div>
 		</>
 	)
 }
